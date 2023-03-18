@@ -1,14 +1,12 @@
-# Webpack TypeScript Starter
-
-This repository provides a basic configuration for developing web applications using TypeScript and Sass with webpack.
+# Car driving project on three js
 
 ## Installation
 
 To get started, you'll need to clone this repository and install its dependencies:
 
-`git clone https://github.com/Igor-Polischuk/webpack-ts-starter.git`
+`git clone https://github.com/Igor-Polischuk/car-driving-three-js.git`
 
-`cd webpack-ts-starter`
+`cd car-driving-three-js`
 
 `npm install`
 
