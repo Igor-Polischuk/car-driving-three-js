@@ -7,7 +7,7 @@ interface IPlatformConfig {
 }
 
 export class Platform {
-    public plane: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>
+    public plane: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshStandardMaterial>
 
     constructor(config: IPlatformConfig) {
         const planeGeometry = new THREE.PlaneGeometry(config.width, config.height)
@@ -15,7 +15,7 @@ export class Platform {
         texture.wrapS = THREE.RepeatWrapping
         texture.wrapT = THREE.RepeatWrapping
         texture.repeat.set(config.width, config.height)
-        const planeMaterial = new THREE.MeshBasicMaterial({ map: texture })
+        const planeMaterial = new THREE.MeshStandardMaterial({ map: texture })
         this.plane = new THREE.Mesh(planeGeometry, planeMaterial)
         this.plane.rotation.x = -0.5 * Math.PI
         this.plane.receiveShadow = true

@@ -1,3 +1,4 @@
+import { Light } from './objects/Light';
 import { Platform } from './objects/Platform';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
@@ -15,6 +16,7 @@ export class World {
         this.renderer.setAnimationLoop(this.update.bind(this))
         this.changeWindowWhenResize()
         this.orbitControls.update()
+        new Light(this.scene)
         const plane = new Platform({
             width: 100,
             height: 100,
