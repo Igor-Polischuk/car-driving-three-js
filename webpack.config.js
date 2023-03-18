@@ -6,6 +6,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
+const isProd = !isDev;
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
@@ -30,6 +31,7 @@ module.exports = {
         clean: true
     },
     resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
         alias: {
             '@': path.resolve(__dirname, 'src'),
             '@styles': path.resolve(__dirname, 'src/styles/'),

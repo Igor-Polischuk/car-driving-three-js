@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./src/ts",
     "paths": {
-            
+      
     },
     "outDir": "./dist/",
     "noImplicitAny": true,

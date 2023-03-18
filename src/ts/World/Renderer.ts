@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
-export class Rendere{
-    private renderer = new THREE.WebGLRenderer()
+export class Renderer{
+    public renderer = new THREE.WebGLRenderer()
     constructor(){
         this.renderer.setSize(window.innerWidth, innerHeight)
         document.body.appendChild(this.renderer.domElement)
