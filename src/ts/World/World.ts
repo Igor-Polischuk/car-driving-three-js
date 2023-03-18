@@ -8,6 +8,7 @@ import { Renderer } from "./display/Renderer";
 
 import floorTexture from '@image/floor.jpg'
 import { KeyListener } from '@utility/KeysListener';
+import { Car } from '@components/Car/Car';
 
 export class World {
     private scene = new Scene().scene
@@ -26,7 +27,7 @@ export class World {
             height: 100,
             textureImg: floorTexture
         }).plane
-
+        new Car({model: '../../assets/models/car.glb', scene: this.scene})
         this.scene.add(plane)
     }
 
