@@ -34,7 +34,11 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
         alias: {
             '@': path.resolve(__dirname, 'src'),
-            '@styles': path.resolve(__dirname, 'src/styles/'),
+            '@styles': path.resolve(__dirname, 'src/styles'),
+            '@assets': path.resolve(__dirname, 'src/assets'),
+            '@image': path.resolve(__dirname, 'src/assets/image'),
+            '@models': path.resolve(__dirname, 'src/assets/models'),
+            '@sounds': path.resolve(__dirname, 'src/assets/sounds'),
         },
         plugins: [new TsconfigPathsPlugin()]
     },
@@ -119,4 +123,4 @@ module.exports = {
             }
         ],
     },
-};
+}

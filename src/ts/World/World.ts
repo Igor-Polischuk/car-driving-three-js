@@ -6,6 +6,8 @@ import { Camera } from "./display/Camera";
 import { Scene } from "./display/Scene";
 import { Renderer } from "./display/Renderer";
 
+import floorTexture from '@image/floor.jpg'
+
 export class World {
     private scene = new Scene().scene
     private camera = new Camera().camera
@@ -20,7 +22,7 @@ export class World {
         const plane = new Platform({
             width: 100,
             height: 100,
-            textureImg: '../../assets/images/floor.jpg'
+            textureImg: floorTexture
         }).plane
 
         this.scene.add(plane)

@@ -1,7 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src/ts",
+    "baseUrl": "./src/",
     "paths": {
+      "@components/*":  [".ts/components/*"],
+      "@utilities/*":  [".ts/utilities/*"],
+      "@styles/*": ["./scss/*"],
+      "@assets/*": ["./assets/*"],
+      "@image/*": ["./assets/images/*"],
+      "@models/*": ["./assets/models/*"],
+      "@sounds/*": ["./assets/sounds/*"]
       
     },
     "outDir": "./dist/",
