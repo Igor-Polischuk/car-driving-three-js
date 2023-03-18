@@ -1,5 +1,5 @@
 import '../scss/style.scss'
 
-import { World } from 'World/World'
+import { World } from 'world/World'
 
 new World()

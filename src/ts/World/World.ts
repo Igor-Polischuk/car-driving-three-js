@@ -1,8 +1,9 @@
+import { Platform } from './objects/Platform';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-import { Camera } from "./Camera";
-import { Scene } from "./Scene";
-import { Renderer } from "./Renderer";
+import { Camera } from "./display/Camera";
+import { Scene } from "./display/Scene";
+import { Renderer } from "./display/Renderer";
 
 export class World {
     private scene = new Scene().scene
@@ -14,6 +15,13 @@ export class World {
         this.renderer.setAnimationLoop(this.update.bind(this))
         this.changeWindowWhenResize()
         this.orbitControls.update()
+        const plane = new Platform({
+            width: 100,
+            height: 100,
+            textureImg: '../../assets/images/floor.jpg'
+        }).plane
+
+        this.scene.add(plane)
     }
 
     update() {
