@@ -7,6 +7,7 @@ import { Scene } from "./display/Scene";
 import { Renderer } from "./display/Renderer";
 
 import floorTexture from '@image/floor.jpg'
+import { KeyListener } from '@utility/KeysListener';
 
 export class World {
     private scene = new Scene().scene
@@ -19,6 +20,7 @@ export class World {
         this.changeWindowWhenResize()
         this.orbitControls.update()
         new Light(this.scene)
+        new KeyListener()
         const plane = new Platform({
             width: 100,
             height: 100,

@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": "./src/",
     "paths": {
-      "@components/*":  [".ts/components/*"],
-      "@utilities/*":  [".ts/utilities/*"],
+      "@components/*":  ["./ts/components/*"],
+      "@utility/*":  ["./ts/utility/*"],
       "@styles/*": ["./scss/*"],
       "@assets/*": ["./assets/*"],
       "@image/*": ["./assets/images/*"],
