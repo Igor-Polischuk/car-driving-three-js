@@ -1,3 +1,4 @@
+import { CarController } from './CarController';
 import * as THREE from "three"
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { CarAnimator } from "./CarAnimator";
@@ -15,15 +16,16 @@ export class Car {
     private config: ICarConfig
     private carParts: ICarParts | undefined
     private animator: CarAnimator | undefined
+    private controller: CarController | undefined
     constructor(config: ICarConfig) {
         this.config = config
         this.renderLoadedCar()
     }
 
 
-    updateCar(){
-        if(this.animator){
-           
+    updateCar(deltaTime: number){
+        if(this.animator && this.controller){
+           this.controller.calculateCar(deltaTime)
         }
     }
 
@@ -41,6 +43,7 @@ export class Car {
         if(!this.carParts) return
         if (this.carParts.body && this.carParts.model){
             this.animator = new CarAnimator({carParts: this.carParts})
+            this.controller = new CarController(this.carParts.model)
         }
     }
 

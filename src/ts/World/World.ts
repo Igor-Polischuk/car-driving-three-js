@@ -16,6 +16,7 @@ export class World {
     private renderer = new Renderer().renderer
     private orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
     private porshe: Car
+    private lastFrameTime = 0;
 
     constructor() {
         this.renderer.setAnimationLoop(this.update.bind(this))
@@ -28,12 +29,15 @@ export class World {
             height: 100,
             textureImg: floorTexture
         }).plane
-        this.porshe = new Car({model: '../../assets/models/car.glb', scene: this.scene})
+        this.porshe = new Car({ model: '../../assets/models/car.glb', scene: this.scene })
         this.scene.add(plane)
     }
 
-    update() {
-        this.porshe.updateCar()
+    update(date: number) {
+        const deltaTime = (date - this.lastFrameTime) / 1000; // перетворюємо час в секунди
+        this.lastFrameTime = date;
+        
+        this.porshe.updateCar(deltaTime)
         this.renderer.render(this.scene, this.camera)
     }
 
