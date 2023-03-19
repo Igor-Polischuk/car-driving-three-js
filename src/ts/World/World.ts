@@ -15,6 +15,7 @@ export class World {
     private camera = new Camera().camera
     private renderer = new Renderer().renderer
     private orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
+    private porshe: Car
 
     constructor() {
         this.renderer.setAnimationLoop(this.update.bind(this))
@@ -27,12 +28,12 @@ export class World {
             height: 100,
             textureImg: floorTexture
         }).plane
-        new Car({model: '../../assets/models/car.glb', scene: this.scene})
+        this.porshe = new Car({model: '../../assets/models/car.glb', scene: this.scene})
         this.scene.add(plane)
     }
 
     update() {
-
+        this.porshe.updateCar()
         this.renderer.render(this.scene, this.camera)
     }
 
