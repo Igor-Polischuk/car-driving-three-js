@@ -32,6 +32,7 @@ export class Car {
     private async renderLoadedCar(){
         const carLoader = new CarLoader(this.config.model)
         this.carParts = await carLoader.getCarModel()
+        this.model = this.carParts.model
         if (this.carParts.model){
             this.carParts.model.scale.set(0.5, 0.5, 0.5)
             this.addAnimationsToCar()
