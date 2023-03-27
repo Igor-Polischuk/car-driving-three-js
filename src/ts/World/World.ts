@@ -36,9 +36,9 @@ export class World {
     update(date: number) {
         const deltaTime = (date - this.lastFrameTime) / 1000; // перетворюємо час в секунди
         this.lastFrameTime = date;
-        if (this.porshe.model) {
-            new ThirdPersonCamera(this.porshe.model, this.camera, this.orbitControls).update()
-        }
+        // if (this.porshe.model) {
+        //     new ThirdPersonCamera(this.porshe.model, this.camera, this.orbitControls).update()
+        // }
         this.porshe.updateCar(deltaTime)
         this.renderer.render(this.scene, this.camera)
     }
