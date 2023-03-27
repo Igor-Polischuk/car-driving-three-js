@@ -1,3 +1,4 @@
+import { CarData } from './CarData';
 import { CarController } from './CarController';
 import * as THREE from "three"
 import { CarAnimator } from "./CarAnimator";
@@ -16,8 +17,12 @@ export class Car {
     private carParts: ICarParts | undefined
     private animator: CarAnimator | undefined
     private controller: CarController | undefined
+    private carData: CarData
     constructor(config: ICarConfig) {
         this.config = config
+        this.carData = new CarData({
+            velocity: 0
+        })
         this.renderLoadedCar()
     }
 
@@ -25,6 +30,7 @@ export class Car {
     updateCar(deltaTime: number){
         if(this.animator && this.controller){
            this.controller.calculateCar(deltaTime)
+           this.animator.setStates(['dispersal'])
         }
     }
 
@@ -42,8 +48,11 @@ export class Car {
     private addAnimationsToCar(){
         if(!this.carParts) return
         if (this.carParts.body && this.carParts.model){
-            this.animator = new CarAnimator({carParts: this.carParts})
-            this.controller = new CarController(this.carParts.model)
+            this.animator = new CarAnimator({carParts: this.carParts, carData: this.carData})
+            this.controller = new CarController({
+                car: this.carParts.model,
+                CarData: this.carData
+            })
         }
     }
 

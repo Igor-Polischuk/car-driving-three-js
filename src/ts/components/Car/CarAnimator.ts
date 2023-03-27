@@ -1,8 +1,10 @@
+import { CarData } from './CarData';
 import { degreesToRadians } from "@utility/degreesToRadians";
 import { ICarParts } from "./interfaces";
 
 interface ICarAnimatorConfig{
     carParts: Required<ICarParts>
+    carData: CarData
 }
 
 export class CarAnimator{
@@ -14,9 +16,17 @@ export class CarAnimator{
         bodyToTheRight: this.bodyToTheRight.bind(this),
         suddenStop: this.suddenStop.bind(this),
     }
+
+    private velocity = 0
+
     private carParts
+    private carData
+
     constructor(config: ICarAnimatorConfig){
         this.carParts = config.carParts
+        this.carData = config.carData
+
+        this.carData.subscribe('velocity', this.setVelocity.bind(this))
     }
 
     setStates(states: (keyof typeof this.states)[]){
@@ -25,11 +35,15 @@ export class CarAnimator{
         })
     }
 
+    private setVelocity(value: number){
+        this.velocity = value
+    }
+
     private dispersal(){
         
         const {wheels} = this.carParts
         wheels.forEach(wheel => {
-            wheel.rotation.x -= 1
+            wheel.rotation.x += this.velocity
         })
     }
 
