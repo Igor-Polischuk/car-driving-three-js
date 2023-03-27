@@ -14,7 +14,7 @@ export class Platform {
         const texture = new THREE.TextureLoader().load(config.textureImg)
         texture.wrapS = THREE.RepeatWrapping
         texture.wrapT = THREE.RepeatWrapping
-        texture.repeat.set(config.width, config.height)
+        texture.repeat.set(64, 64)
         const planeMaterial = new THREE.MeshStandardMaterial({ map: texture })
         this.plane = new THREE.Mesh(planeGeometry, planeMaterial)
         this.plane.rotation.x = -0.5 * Math.PI
