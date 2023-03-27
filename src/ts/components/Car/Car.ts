@@ -1,6 +1,5 @@
 import { CarController } from './CarController';
 import * as THREE from "three"
-import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { CarAnimator } from "./CarAnimator";
 import { CarLoader } from "./CarLoader";
 import { ICarParts } from "./interfaces";

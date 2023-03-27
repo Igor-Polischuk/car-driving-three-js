@@ -1,13 +1,13 @@
 export class KeyListener{
-    public pressedkeys: Record<KeyboardEvent['code'], boolean> = {}
+    public pressedKeys: Record<KeyboardEvent['code'], boolean> = {}
 
     constructor(){
         window.addEventListener('keydown', (e) => {
-            this.pressedkeys[e.code] = true
+            this.pressedKeys[e.code] = true
         })
 
         window.addEventListener('keyup', (e) => {
-            this.pressedkeys[e.code] = false
+            this.pressedKeys[e.code] = false
         })
     }
 }
