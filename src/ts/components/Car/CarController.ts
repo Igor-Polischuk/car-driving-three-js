@@ -15,10 +15,10 @@ export class CarController {
     private axis = new THREE.Vector3(0, 1, 0)
 
     private acceleration = 6
-    private backwardAcceleration = -3
+    private backwardAcceleration = -2
     private velocity = 0
-    private maxSpeed = 70
-    private maxBackwardSpeed = -40
+    private maxSpeed = 50
+    private maxBackwardSpeed = -20
 
     private FPS = 1
 
@@ -37,8 +37,6 @@ export class CarController {
         this.calculateDirection()
 
         this.car.position.add(this.direction)
-        console.log(this.velocity);
-
     }
 
     private calculateDirection() {
@@ -46,20 +44,20 @@ export class CarController {
             this.calculateCarRotation(this.straightDirection)
             this.backDirection = this.straightDirection.clone().negate()
         } else if (this.pressedKeys.KeyS || this.velocity < 0) {
-            this.calculateCarRotation(this.backDirection, -1)
+            this.calculateCarRotation(this.backDirection)
             this.straightDirection = this.backDirection.clone().negate()
         }
         this.direction.normalize().multiplyScalar(this.velocity)
     }
 
-    private calculateCarRotation(directionVector: THREE.Vector3, reverse = 1){
+    private calculateCarRotation(directionVector: THREE.Vector3){
         this.direction = directionVector.clone().normalize().multiplyScalar(this.velocity)
         if (this.pressedKeys.KeyD) {
-            const angle = -degreesToRadians(this.velocity * (4 - this.velocity)) * reverse
+            const angle = -degreesToRadians(this.velocity * 3)
             directionVector.applyAxisAngle(this.axis, angle)
             this.car.rotateY(angle)
         }else if (this.pressedKeys.KeyA){
-            const angle = degreesToRadians(this.velocity * 2.5) * reverse
+            const angle = degreesToRadians(this.velocity * 3)
             directionVector.applyAxisAngle(this.axis, angle)
             this.car.rotateY(angle)
         }
@@ -85,9 +83,9 @@ export class CarController {
             }
             this.velocity += backwardAcceleration
         } else {
-            if (this.velocity >= 0.1){
+            if (this.velocity >= 0.03){
                 this.velocity -= acceleration
-            }else if(this.velocity <= -0.1){
+            }else if(this.velocity <= -0.03){
                 this.velocity -= backwardAcceleration
             }else{
                 this.velocity = 0

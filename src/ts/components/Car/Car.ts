@@ -30,7 +30,7 @@ export class Car {
     updateCar(deltaTime: number){
         if(this.animator && this.controller){
            this.controller.calculateCar(deltaTime)
-           this.animator.setStates(['dispersal'])
+           this.animator.setStates(['dispersal', 'turnTo', 'bodyTilt'])
         }
     }
 
