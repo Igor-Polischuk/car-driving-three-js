@@ -11,6 +11,20 @@ import { KeyListener } from '@utility/KeysListener';
 import { Car } from '@components/Car/Car';
 import { ThirdPersonCamera } from './objects/ThirdPersonCamera';
 
+const map = [
+    ['0', '0', '0', '1', '0', '0', '0',],
+    ['0', '0', '0', '1', '0', '0', '0',],
+    ['0', '0', '0', '1', '0', '0', '0',],
+    ['0', '0', '0', '1', '0', '0', '0',],
+    ['0', '0', '0', '=', '0', '0', '0',],
+    ['2', '2', '=', 'x', '=', '2', '2',],
+    ['0', '0', '0', '=', '0', '0', '0',],
+    ['0', '0', '0', '1', '0', '0', '0',],
+    ['0', '0', '0', '1', '0', '0', '0',],
+    ['0', '0', '0', '1', '0', '0', '0',],
+    ['0', '0', '0', '1', '0', '0', '0',],
+]
+
 export class World {
     private scene = new Scene().scene
     private camera = new Camera().camera
@@ -24,21 +38,15 @@ export class World {
         this.orbitControls.update()
         new Light(this.scene)
         new KeyListener()
-        const plane = new Platform({
-            width: 1000,
-            height: 1000,
-            textureImg: floorTexture
-        }).plane
-        this.scene.add(plane)
-        this.porshe = new Car({ model: '../../assets/models/car.glb', scene: this.scene })
+        this.porshe = new Car({ model: '../../assets/models/cyber.glb', scene: this.scene })
     }
 
     update(date: number) {
         const deltaTime = (date - this.lastFrameTime) / 1000; // перетворюємо час в секунди
         this.lastFrameTime = date;
-        if (this.porshe.model) {
-            new ThirdPersonCamera(this.porshe.model, this.camera, this.orbitControls).update()
-        }
+        // if (this.porshe.model) {
+        //     new ThirdPersonCamera(this.porshe.model, this.camera, this.orbitControls).update()
+        // }
         this.porshe.updateCar(deltaTime)
         this.renderer.render(this.scene, this.camera)
     }

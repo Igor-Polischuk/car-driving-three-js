@@ -7,7 +7,7 @@ export class ThirdPersonCamera {
         private orbit: OrbitControls
     ) {
         this.orbit.minDistance = 3
-        this.orbit.maxDistance = 7
+        this.orbit.maxDistance = 10
         this.orbit.enablePan = false
         this.orbit.maxPolarAngle = Math.PI / 2 - 0.05
     }

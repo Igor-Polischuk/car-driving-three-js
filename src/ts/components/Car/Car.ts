@@ -30,16 +30,17 @@ export class Car {
     updateCar(deltaTime: number){
         if(this.animator && this.controller){
            this.controller.calculateCar(deltaTime)
-           this.animator.setStates(['dispersal', 'turnTo', 'bodyTilt'])
+           this.animator.setStates(['dispersal', 'turnTo'])
         }
     }
 
     private async renderLoadedCar(){
-        const carLoader = new CarLoader(this.config.model)
+        const carLoader = new CarLoader(this.config.model, this.config.scene)
         this.carParts = await carLoader.getCarModel()
         this.model = this.carParts.model
         if (this.carParts.model){
             this.carParts.model.scale.set(0.5, 0.5, 0.5)
+
             this.addAnimationsToCar()
             this.config.scene.add(this.carParts.model)
         }
@@ -47,7 +48,7 @@ export class Car {
 
     private addAnimationsToCar(){
         if(!this.carParts) return
-        if (this.carParts.body && this.carParts.model){
+        if (this.carParts.model){
             this.animator = new CarAnimator({carParts: this.carParts, carData: this.carData})
             this.controller = new CarController({
                 car: this.carParts.model,

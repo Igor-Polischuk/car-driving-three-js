@@ -1,4 +1,4 @@
-import { speedometer } from '@utility/spedometer';
+import { speedometer } from '@utility/speedometer';
 import { CarData } from './CarData';
 import * as THREE from 'three';
 import { KeyListener } from '@utility/KeysListener';
@@ -15,11 +15,11 @@ export class CarController {
     private direction = new THREE.Vector3(0, 0, 0)
     private axis = new THREE.Vector3(0, 1, 0)
 
-    private acceleration = 1
-    private backwardAcceleration = -0.5
+    private acceleration = 2
+    private backwardAcceleration = -2
     private velocity = 0
     private maxSpeed = 50
-    private maxBackwardSpeed = -10
+    private maxBackwardSpeed = -20
 
     private FPS = 1
 
@@ -86,7 +86,7 @@ export class CarController {
             this.velocity += backwardAcceleration
         } else {
             if (this.velocity >= 0.03){
-                this.velocity -= acceleration
+                this.velocity -= acceleration * 2
             }else if(this.velocity <= -0.03){
                 this.velocity -= backwardAcceleration
             }else{
