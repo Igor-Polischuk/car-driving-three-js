@@ -61,9 +61,9 @@ export class CarAnimator {
     }
 
     private calculateFrontWheelRotate() {
-        if (this.pressedKeys.KeyA && this.frontWheelRotate < degreesToRadians(40)) {
+        if (this.pressedKeys.KeyA && this.frontWheelRotate < degreesToRadians(30)) {
             this.frontWheelRotate += degreesToRadians(5)
-        } else if (this.pressedKeys.KeyD && this.frontWheelRotate > degreesToRadians(-40)) {
+        } else if (this.pressedKeys.KeyD && this.frontWheelRotate > degreesToRadians(-30)) {
             this.frontWheelRotate -= degreesToRadians(5)
         } else {
             if (this.frontWheelRotate > 0.01) {

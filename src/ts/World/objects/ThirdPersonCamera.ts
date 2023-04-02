@@ -7,7 +7,7 @@ export class ThirdPersonCamera {
         private orbit: OrbitControls
     ) {
         this.orbit.minDistance = 3
-        this.orbit.maxDistance = 10
+        this.orbit.maxDistance = 5
         this.orbit.enablePan = false
         this.orbit.maxPolarAngle = Math.PI / 2 - 0.05
     }
@@ -15,7 +15,7 @@ export class ThirdPersonCamera {
     update() {
         const { x, y, z } = this.model.position
         this.orbit.target.copy(this.model.position)
-        this.camera.position.y = y + 3
+        this.camera.position.y = y + 2
         this.orbit.update()
     }
 }

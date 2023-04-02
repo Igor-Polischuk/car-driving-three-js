@@ -11,22 +11,28 @@ export class CarLoader {
     private body: THREE.Object3D | undefined
     private loader = new GLTFLoader()
     private modelUrl: string
-    private scene
-    constructor(modelUrl: string, scene: THREE.Scene) {
+    private engineSound
+    constructor(modelUrl: string) {
         this.modelUrl = modelUrl
-        this.scene = scene
+
+        const audioLoader = new THREE.AudioLoader();
+        const listener = new THREE.AudioListener();
+        this.engineSound = new THREE.Audio(listener);
+        audioLoader.load('../../../assets/sounds/1.mp3', (buffer) => {
+            this.engineSound.setBuffer(buffer);
+            this.engineSound.setLoop(true);
+            this.engineSound.setVolume(0.5);
+            this.engineSound.name = 'engineSound'
+            this.engineSound.play();
+          });
     }
 
     async getCarModel(): Promise<ICarParts> {
         const gltf = await this.loader.loadAsync(this.modelUrl, this.onProgress.bind(this))
         this.model = gltf.scene
-        this.model.traverse(function (child) {
-            if (child instanceof THREE.Mesh) {
-                // console.log(child);
-            }
-        });
         this.getWheels(this.model)
         this.getBody(this.model)
+        this.model.add(this.engineSound)
         return {
             model: this.model,
             wheels: this.wheels,

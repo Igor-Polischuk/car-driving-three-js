@@ -35,9 +35,9 @@ export class World {
         const deltaTime = (date - this.lastFrameTime) / 1000; 
         this.lastFrameTime = date;
         this.car.updateCar(deltaTime)
-        // if(this.car.model){
-        //     new ThirdPersonCamera(this.car.model, this.camera, this.orbitControls).update()
-        // }
+        if(this.car.model){
+            new ThirdPersonCamera(this.car.model, this.camera, this.orbitControls).update()
+        }
         this.renderer.render(this.scene, this.camera)
     }
 

@@ -21,6 +21,8 @@ export class CarController {
     private maxSpeed = 20
     private maxBackwardSpeed = -5
 
+    private isPlayingSound = false
+
     private FPS = 1
 
     private car
@@ -36,8 +38,25 @@ export class CarController {
         this.FPS = 1 / deltaTime
         this.calculateVelocity()
         this.calculateDirection()
+        this.soundsController()
+        this.soundsController()
 
         this.car.position.add(this.direction)
+    }
+
+    private soundsController() {
+        const engineSound = this.car.children[4] as THREE.Audio
+        if (engineSound) {
+            engineSound.setVolume(this.velocity / this.maxSpeed * 4);
+            if (this.velocity !== 0 && !this.isPlayingSound) {
+                engineSound.play();
+                this.isPlayingSound = true
+            } else if(this.velocity === 0 && this.isPlayingSound){
+                engineSound.pause();
+                this.isPlayingSound = false
+            }
+        }
+
     }
 
     private calculateDirection() {
@@ -51,20 +70,20 @@ export class CarController {
         this.direction.normalize().multiplyScalar(this.velocity)
     }
 
-    private calculateCarRotation(directionVector: THREE.Vector3){
+    private calculateCarRotation(directionVector: THREE.Vector3) {
         this.direction = directionVector.clone().normalize().multiplyScalar(this.velocity)
         if (this.pressedKeys.KeyD) {
             const angle = -this.getAngle()
             directionVector.applyAxisAngle(this.axis, angle)
             this.car.rotateY(angle)
-        }else if (this.pressedKeys.KeyA){
+        } else if (this.pressedKeys.KeyA) {
             const angle = this.getAngle()
             directionVector.applyAxisAngle(this.axis, angle)
             this.car.rotateY(angle)
         }
     }
 
-    private getAngle(){
+    private getAngle() {
         return degreesToRadians(this.velocity * (10 - this.velocity * 10))
     }
 
@@ -77,7 +96,7 @@ export class CarController {
         speedometer(+(this.velocity * this.FPS * 3.6).toFixed(0))
 
         if (this.pressedKeys.KeyW) {
-            if (this.velocity < 0){
+            if (this.velocity < 0) {
                 this.velocity -= backwardAcceleration * 4
                 return
             }
@@ -87,7 +106,7 @@ export class CarController {
             }
             this.velocity += acceleration
         } else if (this.pressedKeys.KeyS) {
-            if (this.velocity > 0){
+            if (this.velocity > 0) {
                 this.velocity -= acceleration * 6
                 return
             }
@@ -97,11 +116,11 @@ export class CarController {
             }
             this.velocity += backwardAcceleration
         } else {
-            if (this.velocity >= 0.03){
+            if (this.velocity >= 0.03) {
                 this.velocity -= acceleration * 2
-            }else if(this.velocity <= -0.03){
+            } else if (this.velocity <= -0.03) {
                 this.velocity -= backwardAcceleration * 2
-            }else{
+            } else {
                 this.velocity = 0
             }
         }

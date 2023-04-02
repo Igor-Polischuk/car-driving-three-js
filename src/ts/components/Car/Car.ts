@@ -35,7 +35,7 @@ export class Car {
     }
 
     private async renderLoadedCar(){
-        const carLoader = new CarLoader(this.config.model, this.config.scene)
+        const carLoader = new CarLoader(this.config.model)
         this.carParts = await carLoader.getCarModel()
         this.model = this.carParts.model
         if (this.carParts.model){
