@@ -51,8 +51,10 @@ export class CarLoader {
             wheelFrontLeft.position.x = 0.95
             wheelFrontRight.position.x = -0.95
             wheelFrontRight.rotateY(Math.PI)
+            wheelRearRight.rotateY(Math.PI)
+            wheelRearRight.position.set(-0.95, 0, -3)
             this.frontWheels = [this.wrapWheelInContainer(wheelFrontLeft), this.wrapWheelInContainer(wheelFrontRight)]
-            this.wheels = [wheelFrontLeft, wheelFrontRight, wheelRearRight, wheelRearLeft]
+            this.wheels = [wheelFrontLeft, wheelFrontRight, this.wrapWheelInContainer(wheelRearRight), wheelRearLeft]
         }
     }
 
@@ -60,7 +62,6 @@ export class CarLoader {
         if (!this.model) return wheel
         const wheelContainer = new THREE.Group();
         this.model.add(wheelContainer)
-        console.log(wheel.position);
 
         wheelContainer.position.x = wheel.position.x
         wheelContainer.position.y = wheel.position.y + 0.4
