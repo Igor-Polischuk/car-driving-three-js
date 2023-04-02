@@ -6,31 +6,17 @@ import { Camera } from "./display/Camera";
 import { Scene } from "./display/Scene";
 import { Renderer } from "./display/Renderer";
 
-import floorTexture from '@image/floor.jpg'
 import { KeyListener } from '@utility/KeysListener';
 import { Car } from '@components/Car/Car';
-import { ThirdPersonCamera } from './objects/ThirdPersonCamera';
+import * as THREE from 'three';
 
-const map = [
-    ['0', '0', '0', '1', '0', '0', '0',],
-    ['0', '0', '0', '1', '0', '0', '0',],
-    ['0', '0', '0', '1', '0', '0', '0',],
-    ['0', '0', '0', '1', '0', '0', '0',],
-    ['0', '0', '0', '=', '0', '0', '0',],
-    ['2', '2', '=', 'x', '=', '2', '2',],
-    ['0', '0', '0', '=', '0', '0', '0',],
-    ['0', '0', '0', '1', '0', '0', '0',],
-    ['0', '0', '0', '1', '0', '0', '0',],
-    ['0', '0', '0', '1', '0', '0', '0',],
-    ['0', '0', '0', '1', '0', '0', '0',],
-]
 
 export class World {
     private scene = new Scene().scene
     private camera = new Camera().camera
     private renderer = new Renderer().renderer
     private orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
-    private porshe: Car
+    private car: Car
     private lastFrameTime = 0;
     constructor() {
         this.renderer.setAnimationLoop(this.update.bind(this))
@@ -38,16 +24,16 @@ export class World {
         this.orbitControls.update()
         new Light(this.scene)
         new KeyListener()
-        this.porshe = new Car({ model: '../../assets/models/cyber.glb', scene: this.scene })
+        this.car = new Car({ model: '../../assets/models/cyber.glb', scene: this.scene })
+        const gridHelper = new THREE.GridHelper(50, 50, "black")
+        const plane = new Platform({width: 50, height: 50})
+        this.scene.add(plane.plane, gridHelper)
     }
 
     update(date: number) {
-        const deltaTime = (date - this.lastFrameTime) / 1000; // перетворюємо час в секунди
+        const deltaTime = (date - this.lastFrameTime) / 1000; 
         this.lastFrameTime = date;
-        // if (this.porshe.model) {
-        //     new ThirdPersonCamera(this.porshe.model, this.camera, this.orbitControls).update()
-        // }
-        this.porshe.updateCar(deltaTime)
+        this.car.updateCar(deltaTime)
         this.renderer.render(this.scene, this.camera)
     }
 
@@ -61,4 +47,4 @@ export class World {
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
-}
+} 
