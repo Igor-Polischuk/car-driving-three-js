@@ -9,6 +9,7 @@ import { Renderer } from "./display/Renderer";
 import { KeyListener } from '@utility/KeysListener';
 import { Car } from '@components/Car/Car';
 import * as THREE from 'three';
+import { ThirdPersonCamera } from './objects/ThirdPersonCamera';
 
 
 export class World {
@@ -34,6 +35,9 @@ export class World {
         const deltaTime = (date - this.lastFrameTime) / 1000; 
         this.lastFrameTime = date;
         this.car.updateCar(deltaTime)
+        // if(this.car.model){
+        //     new ThirdPersonCamera(this.car.model, this.camera, this.orbitControls).update()
+        // }
         this.renderer.render(this.scene, this.camera)
     }
 

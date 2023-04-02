@@ -48,7 +48,7 @@ export class CarAnimator {
     private dispersal() {
         const { wheels } = this.carParts
         wheels.forEach(wheel => {
-            wheel.rotation.x += this.velocity
+            wheel.rotation.x += this.velocity * 3
         })
     }
 

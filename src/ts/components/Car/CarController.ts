@@ -15,11 +15,11 @@ export class CarController {
     private direction = new THREE.Vector3(0, 0, 0)
     private axis = new THREE.Vector3(0, 1, 0)
 
-    private acceleration = 2
-    private backwardAcceleration = -2
+    private acceleration = 0.5
+    private backwardAcceleration = -0.3
     private velocity = 0
-    private maxSpeed = 50
-    private maxBackwardSpeed = -20
+    private maxSpeed = 20
+    private maxBackwardSpeed = -5
 
     private FPS = 1
 
@@ -41,10 +41,10 @@ export class CarController {
     }
 
     private calculateDirection() {
-        if (this.pressedKeys.KeyW || this.velocity > 0) {
+        if (this.velocity > 0) {
             this.calculateCarRotation(this.straightDirection)
             this.backDirection = this.straightDirection.clone().negate()
-        } else if (this.pressedKeys.KeyS || this.velocity < 0) {
+        } else if (this.velocity < 0) {
             this.calculateCarRotation(this.backDirection)
             this.straightDirection = this.backDirection.clone().negate()
         }
@@ -54,14 +54,18 @@ export class CarController {
     private calculateCarRotation(directionVector: THREE.Vector3){
         this.direction = directionVector.clone().normalize().multiplyScalar(this.velocity)
         if (this.pressedKeys.KeyD) {
-            const angle = -degreesToRadians(this.velocity * 3)
+            const angle = -this.getAngle()
             directionVector.applyAxisAngle(this.axis, angle)
             this.car.rotateY(angle)
         }else if (this.pressedKeys.KeyA){
-            const angle = degreesToRadians(this.velocity * 3)
+            const angle = this.getAngle()
             directionVector.applyAxisAngle(this.axis, angle)
             this.car.rotateY(angle)
         }
+    }
+
+    private getAngle(){
+        return degreesToRadians(this.velocity * (10 - this.velocity * 10))
     }
 
     private calculateVelocity() {
@@ -73,12 +77,20 @@ export class CarController {
         speedometer(+(this.velocity * this.FPS * 3.6).toFixed(0))
 
         if (this.pressedKeys.KeyW) {
+            if (this.velocity < 0){
+                this.velocity -= backwardAcceleration * 4
+                return
+            }
             if (this.velocity >= maxVelocity) {
                 this.velocity = maxVelocity
                 return
             }
             this.velocity += acceleration
         } else if (this.pressedKeys.KeyS) {
+            if (this.velocity > 0){
+                this.velocity -= acceleration * 6
+                return
+            }
             if (this.velocity <= maxBackwardSpeed) {
                 this.velocity = maxBackwardSpeed
                 return
@@ -88,7 +100,7 @@ export class CarController {
             if (this.velocity >= 0.03){
                 this.velocity -= acceleration * 2
             }else if(this.velocity <= -0.03){
-                this.velocity -= backwardAcceleration
+                this.velocity -= backwardAcceleration * 2
             }else{
                 this.velocity = 0
             }
